@@ -55,6 +55,29 @@ while [ "$1" != "" ]; do
 	esac
 	shift
 done
+SVN_COMMAND=`which svn`
+echo "Using svn command as path:" $SVN_COMMAND
+if [ ! -n "$SVN_COMMAND" ] || [ ! -x $SVN_COMMAND ];then
+	echo "SVN not found, please install"
+	exit 1
+fi
+
+MVN_COMMAND=`which mvn`
+echo "Using maven command as path:" $MVN_COMMAND
+if [ ! -n "$MVN_COMMAND" ] || [ ! -x $MVN_COMMAND ];then
+	echo "Maven not found, please install the lastest version"
+	exit 1
+fi
+
+if [ ! -d quartz-2.2.1 ];then 
+	echo "Checkout quartz..."
+	svn checkout http://svn.terracotta.org/svn/quartz/tags/quartz-2.2.1
+	cp quartz/pom.xml quartz-2.2.1/quartz
+	cd $CUR_DIR/quartz-2.2.1
+	$MVN_COMMAND install
+fi
+
+cd $CUR_DIR
 
 # GET WIPERDOG FROM MAVEN BY mvn COMMAND
 if [ $GET_WIPERDOG = "TRUE" ]; then
@@ -90,7 +113,8 @@ if [ $WITH_JOB_MANAGER = "FALSE" ]; then
 	cp terracottaWithWiperdogUseGroovyScript/lib/groovy/libs.target/CustomJob.groovy wiperdog/lib/groovy/libs.target/CustomJob.groovy
 	cp terracottaWithWiperdogUseGroovyScript/lib/groovy/libs.target/Helper.groovy wiperdog/lib/groovy/libs.target/Helper.groovy
 
-	cp terracottaWithWiperdogUseGroovyScript/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
+	# cp terracottaWithWiperdogUseGroovyScript/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
+	cp quartz-2.2.1/quartz/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
 
 	cp terracottaWithWiperdogUseGroovyScript/var/conf/dbconnect.cfg wiperdog/var/conf/dbconnect.cfg
 	
@@ -130,8 +154,8 @@ if [ $WITH_JOB_MANAGER = "TRUE" ]; then
 
 	mv wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar_bak
 	cp terracottaWithWiperdogUseJobManager/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar
-	cp terracottaWithWiperdogUseJobManager/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
-
+	# cp terracottaWithWiperdogUseJobManager/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
+	cp quartz-2.2.1/quartz/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
 	cp terracottaWithWiperdogUseJobManager/var/job/job1.job wiperdog/var/job/job1.job
 	cp terracottaWithWiperdogUseJobManager/var/job/trigger.trg wiperdog/var/job/trigger.trg
 fi
