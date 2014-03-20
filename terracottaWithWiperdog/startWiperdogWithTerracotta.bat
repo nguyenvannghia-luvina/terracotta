@@ -68,7 +68,7 @@ svn --version >nul 2>&1 && (
 				xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\JobDsl.groovy" wiperdog\\lib\\groovy\\libs.target /Y
 				
 				ren "%INSTALL_DIR%\\lib\\java\\bundle\\org.wiperdog.jobmanager-0.2.1.jar" org.wiperdog.jobmanager-0.2.1.jar_bak
-				if not exist org.wiperdog.jobmanager(
+				if not exist org.wiperdog.jobmanager (
 					git --version >nul 2>&1 && ( 
 						git clone https://github.com/dothihuong-luvina/org.wiperdog.jobmanager
 					) || ( 
