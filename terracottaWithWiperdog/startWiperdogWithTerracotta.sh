@@ -88,6 +88,8 @@ fi
 # INSTALL WIPERDOG
 if [ $INSTALL_WIPERDOG = "TRUE" ]; then
 	java -jar wiperdog-assembly.jar -d $CUR_DIR/wiperdog -j 13111 -m "localhost" -p 27017 -n "wiperdog" -mp "" -s no
+
+	dos2unix wiperdog/bin/*
 fi
 
 # INSTALL WIPERDOG WITHOUT JOB MANAGER
@@ -112,7 +114,7 @@ if [ $WITH_JOB_MANAGER = "FALSE" ]; then
 	cp terracottaWithWiperdogUseGroovyScript/lib/groovy/libs.target/Helper.groovy wiperdog/lib/groovy/libs.target/Helper.groovy
 
 	# cp terracottaWithWiperdogUseGroovyScript/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
-	cp quartz-2.2.1/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
+	cp quartz-2.2.1/quartz/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
 
 	cp terracottaWithWiperdogUseGroovyScript/var/conf/dbconnect.cfg wiperdog/var/conf/dbconnect.cfg
 	
@@ -156,8 +158,9 @@ if [ $WITH_JOB_MANAGER = "TRUE" ]; then
 	cd org.wiperdog.jobmanager
 	mvn install -DskipTests
 	cd $CUR_DIR
+	cp org.wiperdog.jobmanager/target/org.wiperdog.jobmanager-0.2.1.jar wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar
 	# cp terracottaWithWiperdogUseJobManager/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
-	cp quartz-2.2.1/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
+	cp quartz-2.2.1/quartz/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
 	cp terracottaWithWiperdogUseJobManager/var/job/job1.job wiperdog/var/job/job1.job
 	cp terracottaWithWiperdogUseJobManager/var/job/trigger.trg wiperdog/var/job/trigger.trg
 fi
@@ -182,7 +185,5 @@ if [ $RUN_WIPERDOG = "TRUE" ]; then
 	echo org.quartz.jobStore.misfireThreshold:60000 >> wiperdog/etc/quartz.properties
 	echo org.quartz.jobStore.class:org.terracotta.quartz.TerracottaJobStore >> wiperdog/etc/quartz.properties
 	echo org.quartz.jobStore.tcConfigUrl:$TC_URL >> wiperdog/etc/quartz.properties
-
-	dos2unix wiperdog/bin/*
 	./wiperdog/bin/startWiperdog.sh
 fi
