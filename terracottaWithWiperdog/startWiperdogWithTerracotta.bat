@@ -17,7 +17,6 @@ for %%i IN (%*) DO (
 )
 svn --version >nul 2>&1 && ( 
 	mvn -v >nul 2>&1 && ( 
-		git --version >nul 2>&1 && ( 
 			if not exist quartz-2.2.1 (
 				echo Check out Quartz...
 				svn checkout http://svn.terracotta.org/svn/quartz/tags/quartz-2.2.1/quartz/ quartz-2.2.1
@@ -69,12 +68,19 @@ svn --version >nul 2>&1 && (
 				xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\JobDsl.groovy" wiperdog\\lib\\groovy\\libs.target /Y
 				
 				ren "%INSTALL_DIR%\\lib\\java\\bundle\\org.wiperdog.jobmanager-0.2.1.jar" org.wiperdog.jobmanager-0.2.1.jar_bak
-				REM if not exist org.wiperdog.jobmanager(
-					git clone https://github.com/dothihuong-luvina/org.wiperdog.jobmanager
-					cd org.wiperdog.jobmanager
-					mvn install -DskipTests
-					cd "%INSTALL_DIR%"
-				REM )
+				if not exist org.wiperdog.jobmanager(
+					git --version >nul 2>&1 && ( 
+						git clone https://github.com/dothihuong-luvina/org.wiperdog.jobmanager
+					) || ( 
+						echo git command not found. Please install it 
+						echo Try this http://msysgit.github.io/
+						goto:end
+					)
+				)
+				REM Build jobmanager
+				cd org.wiperdog.jobmanager
+				mvn clean install -DskipTests
+				cd "%INSTALL_DIR%"
 				
 				xcopy "%INSTALL_DIR%\org.wiperdog.jobmanager\target\org.wiperdog.jobmanager-0.2.1.jar" wiperdog\\lib\\java\\bundle /Y
 				REM xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\java\bundle\org.wiperdog.jobmanager-0.2.1.jar wiperdog\\lib\\java\\bundle /Y
@@ -135,17 +141,15 @@ svn --version >nul 2>&1 && (
 				)
 				"%INSTALL_DIR%\\wiperdog\\bin\\startwiperdog.bat"
 			)
-		) || ( 
-			echo git command not found. Please install it 
-			echo Try this http://msysgit.github.io/
-		)
 	) || ( 
 		echo mvn command not found. Please install it 
 		echo Try this http://maven.apache.org/
+		goto:end
 	)
 ) || ( 
 	echo svn command not found. Please install it 
 	echo Try this http://www.collab.net/search/node/Subversion%20Command-Line%20Client
+	goto:end
 )
 
 :help
@@ -158,4 +162,5 @@ echo - /wjm : Use JobManager bundle in the wiperdog (If not, use JobManger ember
 echo - /rw : Run wiperdog
 echo - /h : Open help
 
+:end
 endlocal
