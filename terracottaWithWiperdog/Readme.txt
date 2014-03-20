@@ -1,12 +1,10 @@
 ----------Demo tutorial---------------------------------
-1. Start terracotta server:
-	1.1 Checkout from SVN, update some pom files, built necessary libaries, follow this link:
-		https://github.com/wiperdog/experimental/tree/master/terracotta
-	1.2 Deploy:
-		Go to checkouted folder of http://svn.terracotta.org/svn/tc/dso/tags/4.1.1/deploy, run command:
-		mvn exec:exec -P start-server
-2. Checkout sources:
+1. Checkout sources:
 	https://github.com/dothihuong-luvina/terracotta.git
+2. Start terracotta server:
+	In terracotta/terracotta_lib_and_server run the following batch/shell to start terracotta server:
+	install_terracotta.bat
+	or ./install-terracotta.sh
 3. In terracottaWithWiperdog folder, run file startWiperdogWithTerracotta.bat/startWiperdogWithTerracotta.sh
    Use /h for help
    
