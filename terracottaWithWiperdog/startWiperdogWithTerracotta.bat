@@ -20,8 +20,8 @@ svn --version >nul 2>&1 && (
 	
 		if not exist quartz-2.2.1 (
 			echo Check out Quartz...
-			svn checkout http://svn.terracotta.org/svn/quartz/tags/quartz-2.2.1
-			xcopy "%INSTALL_DIR%\quartz\pom.xml" quartz-2.2.1\quartz
+			svn checkout http://svn.terracotta.org/svn/quartz/tags/quartz-2.2.1/quartz/ quartz-2.2.1
+			xcopy "%INSTALL_DIR%\quartz\pom.xml" "%INSTALL_DIR%\quartz-2.2.1" /Y
 			cd "%INSTALL_DIR%\quartz-2.2.1"
 			mvn install
 		)
@@ -42,69 +42,77 @@ svn --version >nul 2>&1 && (
 		)
 
 		if %WITH_JOB_MANAGER%=="TRUE" (
-			ren ""%INSTALL_DIR%""\\wiperdog\\bin\\ListBundle.csv ListBundle.csv_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\bin\ListBundle.csv wiperdog\\bin /Y
-			ren ""%INSTALL_DIR%""\\wiperdog\\bin\\startGroovy startGroovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\bin\startGroovy wiperdog\\bin /Y
-			ren ""%INSTALL_DIR%""\\wiperdog\\bin\\startGroovy.bat startGroovy.bat_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\bin\startGroovy.bat wiperdog\\bin /Y
+			ren "%INSTALL_DIR%\\wiperdog\\bin\\ListBundle.csv" ListBundle.csv_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\bin\ListBundle.csv" wiperdog\\bin /Y
+			ren "%INSTALL_DIR%\\wiperdog\\bin\\startGroovy" startGroovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\bin\startGroovy" wiperdog\\bin /Y
+			ren "%INSTALL_DIR%\\wiperdog\\bin\\startGroovy.bat" startGroovy.bat_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\bin\startGroovy.bat" wiperdog\\bin /Y
 			
-			ren ""%INSTALL_DIR%""\\wiperdog\\etc\\boot.groovy boot.groovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\etc\boot.groovy wiperdog\\etc /Y
-			ren ""%INSTALL_DIR%""\\wiperdog\\etc\\config.properties config.properties_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\etc\config.properties wiperdog\\etc /Y
+			ren "%INSTALL_DIR%\\wiperdog\\etc\\boot.groovy" boot.groovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\etc\boot.groovy" wiperdog\\etc /Y
+			ren "%INSTALL_DIR%\\wiperdog\\etc\\config.properties" config.properties_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\etc\config.properties" wiperdog\\etc /Y
 			REM xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\etc\quartz.properties wiperdog\\etc /Y
 			
-			ren ""%INSTALL_DIR%"\\lib\\groovy\\libs.common\\MonitorJobConfigLoader.groovy MonitorJobConfigLoader.groovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\groovy\libs.common\MonitorJobConfigLoader.groovy wiperdog\\lib\\groovy\\libs.common /Y
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\groovy\libs.common\Terracotta_Prototype.groovy wiperdog\\lib\\groovy\\libs.common /Y
+			ren "%INSTALL_DIR%\\lib\\groovy\\libs.common\\MonitorJobConfigLoader.groovy" MonitorJobConfigLoader.groovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.common\MonitorJobConfigLoader.groovy" wiperdog\\lib\\groovy\\libs.common /Y
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.common\Terracotta_Prototype.groovy" wiperdog\\lib\\groovy\\libs.common /Y
 			
-			ren ""%INSTALL_DIR%"\\lib\\groovy\\libs.target\\DefaultJobCaller.groovy DefaultJobCaller.groovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\DefaultJobCaller.groovy wiperdog\\lib\\groovy\\libs.target /Y
-			ren ""%INSTALL_DIR%"\\lib\\groovy\\libs.target\\DefaultSender.groovy DefaultSender.groovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\DefaultSender.groovy wiperdog\\lib\\groovy\\libs.target /Y
-			ren ""%INSTALL_DIR%"\\lib\\groovy\\libs.target\\GroovyScheduledJob.groovy GroovyScheduledJob.groovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\GroovyScheduledJob.groovy wiperdog\\lib\\groovy\\libs.target /Y
-			ren ""%INSTALL_DIR%"\\lib\\groovy\\libs.target\\JobDsl.groovy JobDsl.groovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\JobDsl.groovy wiperdog\\lib\\groovy\\libs.target /Y
+			ren "%INSTALL_DIR%\\lib\\groovy\\libs.target\\DefaultJobCaller.groovy" DefaultJobCaller.groovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\DefaultJobCaller.groovy" wiperdog\\lib\\groovy\\libs.target /Y
+			ren "%INSTALL_DIR%\\lib\\groovy\\libs.target\\DefaultSender.groovy" DefaultSender.groovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\DefaultSender.groovy" wiperdog\\lib\\groovy\\libs.target /Y
+			ren "%INSTALL_DIR%\\lib\\groovy\\libs.target\\GroovyScheduledJob.groovy" GroovyScheduledJob.groovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\GroovyScheduledJob.groovy" wiperdog\\lib\\groovy\\libs.target /Y
+			ren "%INSTALL_DIR%\\lib\\groovy\\libs.target\\JobDsl.groovy" JobDsl.groovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\groovy\libs.target\JobDsl.groovy" wiperdog\\lib\\groovy\\libs.target /Y
 			
-			ren ""%INSTALL_DIR%"\\lib\\java\\bundle\\org.wiperdog.jobmanager-0.2.1.jar org.wiperdog.jobmanager-0.2.1.jar_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\java\bundle\org.wiperdog.jobmanager-0.2.1.jar wiperdog\\lib\\java\\bundle /Y
+			ren "%INSTALL_DIR%\\lib\\java\\bundle\\org.wiperdog.jobmanager-0.2.1.jar" org.wiperdog.jobmanager-0.2.1.jar_bak
+			REM if not exist org.wiperdog.jobmanager(
+				git clone https://github.com/dothihuong-luvina/org.wiperdog.jobmanager
+				cd org.wiperdog.jobmanager
+				mvn install -DskipTests
+				cd "%INSTALL_DIR%"
+			REM )
+			
+			xcopy "%INSTALL_DIR%\org.wiperdog.jobmanager\target\org.wiperdog.jobmanager-0.2.1.jar" wiperdog\\lib\\java\\bundle /Y
+			REM xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\lib\java\bundle\org.wiperdog.jobmanager-0.2.1.jar wiperdog\\lib\\java\\bundle /Y
 			REM xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseJobManager\lib\java\bundle\quartz-2.2.1.jar" wiperdog\\lib\\java\\bundle /Y
-			xcopy "%INSTALL_DIR%\quartz-2.2.1\quartz\target\quartz-2.2.1.jar" wiperdog\\lib\\java\\bundle /Y
+			xcopy "%INSTALL_DIR%\quartz-2.2.1\target\quartz-2.2.1.jar" wiperdog\\lib\\java\\bundle /Y
 			
 			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\var\job\job1.job wiperdog\\var\\job /Y
 			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseJobManager\var\job\trigger.trg wiperdog\\var\\job /Y
 		)
 
 		if %WITH_JOB_MANAGER%=="FALSE" (
-			ren ""%INSTALL_DIR%""\\wiperdog\\bin\\ListBundle.csv ListBundle.csv_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\bin\ListBundle.csv wiperdog\\bin /Y
-			ren ""%INSTALL_DIR%""\\wiperdog\\bin\\startGroovy startGroovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\bin\startGroovy wiperdog\\bin /Y
-			ren ""%INSTALL_DIR%""\\wiperdog\\bin\\startGroovy.bat startGroovy.bat_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\bin\startGroovy.bat wiperdog\\bin /Y
+			ren "%INSTALL_DIR%\\wiperdog\\bin\\ListBundle.csv" ListBundle.csv_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\bin\ListBundle.csv" wiperdog\\bin /Y
+			ren "%INSTALL_DIR%\\wiperdog\\bin\\startGroovy" startGroovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\bin\startGroovy" wiperdog\\bin /Y
+			ren "%INSTALL_DIR%\\wiperdog\\bin\\startGroovy.bat" startGroovy.bat_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\bin\startGroovy.bat" wiperdog\\bin /Y
 			
-			ren ""%INSTALL_DIR%""\\wiperdog\\etc\\boot.groovy boot.groovy_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\etc\boot.groovy wiperdog\\etc /Y
-			ren ""%INSTALL_DIR%""\\wiperdog\\etc\\config.properties config.properties_bak
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\etc\config.properties wiperdog\\etc /Y
+			ren "%INSTALL_DIR%\\wiperdog\\etc\\boot.groovy" boot.groovy_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\etc\boot.groovy" wiperdog\\etc /Y
+			ren "%INSTALL_DIR%\\wiperdog\\etc\\config.properties" config.properties_bak
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\etc\config.properties" wiperdog\\etc /Y
 			REM xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\etc\quartz.properties wiperdog\\etc /Y
 			
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\lib\groovy\libs.common\Terracotta_Prototype.groovy wiperdog\\lib\\groovy\\libs.common /Y
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\lib\groovy\libs.common\Terracotta_Prototype.groovy" wiperdog\\lib\\groovy\\libs.common /Y
 			
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\lib\groovy\libs.target\CustomJob.groovy wiperdog\\lib\\groovy\\libs.target /Y
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\lib\groovy\libs.target\Helper.groovy wiperdog\\lib\\groovy\\libs.target /Y
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\lib\groovy\libs.target\CustomJob.groovy" wiperdog\\lib\\groovy\\libs.target /Y
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\lib\groovy\libs.target\Helper.groovy" wiperdog\\lib\\groovy\\libs.target /Y
 			
 			REM xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\lib\java\bundle\quartz-2.2.1.jar wiperdog\\lib\\java\\bundle /Y
-			xcopy "%INSTALL_DIR%\quartz-2.2.1\quartz\target\quartz-2.2.1.jar" wiperdog\\lib\\java\\bundle /Y
+			xcopy "%INSTALL_DIR%\quartz-2.2.1\target\quartz-2.2.1.jar" wiperdog\\lib\\java\\bundle /Y
 			
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\var\conf\dbconnect.cfg wiperdog\\\var\\conf /Y
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\var\conf\dbconnect.cfg" wiperdog\\\var\\conf /Y
 			
-			if not exist "%INSTALL_DIR%"\wiperdog\var\job.old mkdir "%INSTALL_DIR%"\wiperdog\var\job.old
-			move "%INSTALL_DIR%"\wiperdog\var\job\* "%INSTALL_DIR%"\wiperdog\var\job.old 2>NUL
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\var\job\job1.job wiperdog\\var\\job /Y
-			xcopy "%INSTALL_DIR%"\terracottaWithWiperdogUseGroovyScript\var\job\a.trg wiperdog\\var\\job /Y
+			if not exist "%INSTALL_DIR%\wiperdog\var\job.old" mkdir "%INSTALL_DIR%"\wiperdog\var\job.old
+			move "%INSTALL_DIR%\wiperdog\var\job"\* "%INSTALL_DIR%"\wiperdog\var\job.old 2>NUL
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\var\job\job1.job" wiperdog\\var\\job /Y
+			xcopy "%INSTALL_DIR%\terracottaWithWiperdogUseGroovyScript\var\job\a.trg" wiperdog\\var\\job /Y
 		)
 
 		if %RUN_WIPERDOG%=="TRUE" (
