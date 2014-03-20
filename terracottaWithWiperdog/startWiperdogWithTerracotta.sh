@@ -114,7 +114,7 @@ if [ $WITH_JOB_MANAGER = "FALSE" ]; then
 	cp terracottaWithWiperdogUseGroovyScript/lib/groovy/libs.target/Helper.groovy wiperdog/lib/groovy/libs.target/Helper.groovy
 
 	# cp terracottaWithWiperdogUseGroovyScript/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
-	cp quartz-2.2.1/quartz/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
+	cp quartz-2.2.1/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
 
 	cp terracottaWithWiperdogUseGroovyScript/var/conf/dbconnect.cfg wiperdog/var/conf/dbconnect.cfg
 	
@@ -160,7 +160,7 @@ if [ $WITH_JOB_MANAGER = "TRUE" ]; then
 	cd $CUR_DIR
 	cp org.wiperdog.jobmanager/target/org.wiperdog.jobmanager-0.2.1.jar wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar
 	# cp terracottaWithWiperdogUseJobManager/lib/java/bundle/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
-	cp quartz-2.2.1/quartz/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
+	cp quartz-2.2.1/target/quartz-2.2.1.jar wiperdog/lib/java/bundle/quartz-2.2.1.jar
 	cp terracottaWithWiperdogUseJobManager/var/job/job1.job wiperdog/var/job/job1.job
 	cp terracottaWithWiperdogUseJobManager/var/job/trigger.trg wiperdog/var/job/trigger.trg
 fi
