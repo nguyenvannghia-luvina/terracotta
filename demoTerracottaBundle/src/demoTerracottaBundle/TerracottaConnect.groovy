@@ -1,4 +1,4 @@
-package terracottawithgroovy
+package demoTerracottaBundle
 
 import org.quartz.Job;
 import org.quartz.JobBuilder;

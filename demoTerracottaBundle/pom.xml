@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>terracottaWithGroovy</groupId>
-  <artifactId>terracottaWithGroovy</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <groupId>terracottaDemo</groupId>
+  <artifactId>terracottaInMavenBundle</artifactId>
+  <version>1.0</version>
   
    <dependencies>
      <dependency>
@@ -85,12 +85,12 @@
 	                   ${project.artifactId}
 	               </Bundle-SymbolicName>
 	               <Bundle-Activator>
-	                   terracottawithgroovy.Activator
+	                   demoTerracottaBundle.Activator
 	               </Bundle-Activator>
 	               <Import-Package>groovy.lang, org.codehaus.groovy.reflection, org.codehaus.groovy.runtime, org.codehaus.groovy.runtime.callsite, org.osgi.framework, org.quartz, org.quartz.impl</Import-Package>
-	               <Export-Package>terracottawithgroovy</Export-Package>
+	               <Export-Package>demoTerracottaBundle</Export-Package>
 	               <Private-Package>
-	                   terracottawithgroovy
+	                   demoTerracottaBundle
 	               </Private-Package>
 	               <_include>-osgi.bnd</_include>
 	           </instructions>

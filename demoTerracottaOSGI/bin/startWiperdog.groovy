@@ -89,7 +89,7 @@ public class WiperDogBoot{
 			
 			context.installBundle("wrap:" + (new File(felix_home + "/" + "lib/java/bundle.wrap/c3p0-0.9.1.2.jar")).toURI().toString())
 			context.installBundle((new File(felix_home + "/" + "lib/java/bundle/quartz-2.2.1.jar")).toURI().toString())
-			context.installBundle((new File(felix_home + "/" + "lib/java/bundle/terracottaWithGroovy-0.0.1-SNAPSHOT.jar")).toURI().toString())
+			context.installBundle((new File(felix_home + "/" + "lib/java/bundle/terracottaInMavenBundle-1.0.jar")).toURI().toString())
 			lstinstalledBundles = context.getBundles()
 			lstinstalledBundles.each{bund->
 				bund.start()
