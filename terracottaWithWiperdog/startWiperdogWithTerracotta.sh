@@ -154,7 +154,15 @@ if [ $WITH_JOB_MANAGER = "TRUE" ]; then
 
 	mv wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar_bak
 	# cp terracottaWithWiperdogUseJobManager/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar wiperdog/lib/java/bundle/org.wiperdog.jobmanager-0.2.1.jar
-	git clone https://github.com/dothihuong-luvina/org.wiperdog.jobmanager
+	if [ ! -d org.wiperdog.jobmanager ];then 
+		GIT_COMMAND=`which git`
+		echo "Using git command as path:" $GIT_COMMAND
+		if [ ! -n "$GIT_COMMAND" ] || [ ! -x $GIT_COMMAND ];then
+			echo "Git not found, please install the lastest version"
+			exit 1
+		fi
+		git clone https://github.com/dothihuong-luvina/org.wiperdog.jobmanager
+	fi
 	cd org.wiperdog.jobmanager
 	mvn install -DskipTests
 	cd $CUR_DIR
@@ -185,5 +193,6 @@ if [ $RUN_WIPERDOG = "TRUE" ]; then
 	echo org.quartz.jobStore.misfireThreshold:60000 >> wiperdog/etc/quartz.properties
 	echo org.quartz.jobStore.class:org.terracotta.quartz.TerracottaJobStore >> wiperdog/etc/quartz.properties
 	echo org.quartz.jobStore.tcConfigUrl:$TC_URL >> wiperdog/etc/quartz.properties
+	dos2unix wiperdog/bin/*
 	./wiperdog/bin/startWiperdog.sh
 fi
